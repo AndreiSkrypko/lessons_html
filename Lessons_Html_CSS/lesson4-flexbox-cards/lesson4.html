@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>Портфолио — Карточки проектов (Flexbox)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 class="site-title">Алекс Петров</h1>
+      <nav class="top-nav">
+        <a href="#about">Обо мне</a>
+        <a href="#works">Работы</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="about" class="section">
+      <h2>Обо мне</h2>
+      <p>Верстаю аккуратные страницы и изучаю дизайн интерфейсов.</p>
+      <img src="../images/profile.jpg" alt="Моё фото" class="profile-photo">
+    </section>
+
+    <section id="works" class="section">
+      <h2>Мои работы</h2>
+
+      <div class="cards">
+        <article class="card">
+          <img src="../images/work1.jpg" alt="Работа 1">
+          <h3>Проект 1 — Визитка</h3>
+          <p>Мини-макет с чистой типографикой и аккуратными отступами.</p>
+          <a class="card-btn" href="#" target="_blank" rel="noopener">Посмотреть</a>
+        </article>
+
+        <article class="card">
+          <img src="../images/work2.jpg" alt="Работа 2">
+          <h3>Проект 2 — Обложка</h3>
+          <p>Графический постер для плейлиста. Акцент на композицию.</p>
+          <a class="card-btn" href="#" target="_blank" rel="noopener">Посмотреть</a>
+        </article>
+
+        <article class="card">
+          <img src="../images/work3.jpg" alt="Работа 3">
+          <h3>Проект 3 — Хобби-лендинг</h3>
+          <p>Одностраничник с фото, фактами и ссылками.</p>
+          <a class="card-btn" href="#" target="_blank" rel="noopener">Посмотреть</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="contacts" class="section">
+      <h2>Контакты</h2>
+      <p>Почта: <a href="mailto:alex@example.com">alex@example.com</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© 2025 Алекс</div>
+  </footer>
+</body>
+</html>

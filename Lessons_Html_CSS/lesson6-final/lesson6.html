@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>Моё портфолио — финальная версия</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Кастомные стили -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-success sticky-top shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-semibold" href="#">Портфолио</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#about">Обо мне</a></li>
+        <li class="nav-item"><a class="nav-link" href="#works">Работы</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Контакты</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<header class="hero text-white">
+  <div class="container py-5">
+    <h1 class="display-5 mb-2">Алекс Петров</h1>
+    <p class="lead hero-text">Верстаю и настраиваю аккуратные сайты. Люблю чистую типографику.</p>
+    <a href="#works" class="btn btn-light btn-lg hero-cta">Смотреть работы</a>
+  </div>
+</header>
+
+<main class="py-4">
+  <section id="about" class="container mb-4">
+    <div class="row g-4 align-items-center">
+      <div class="col-12 col-md-4 text-center">
+        <img src="../images/profile.jpg" class="img-fluid rounded shadow-sm" alt="Моё фото">
+      </div>
+      <div class="col-12 col-md-8">
+        <h2>Обо мне</h2>
+        <p>Привет! Я начинающий разработчик. Люблю создавать понятные и приятные интерфейсы, учусь HTML, CSS и Bootstrap.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="works" class="container mb-4">
+    <h2 class="mb-3">Мои работы</h2>
+    <div class="row g-3">
+      <div class="col-sm-6 col-md-4">
+        <div class="card project-card h-100">
+          <img src="../images/work1.jpg" class="card-img-top" alt="Работа 1 — Визитка">
+          <div class="card-body">
+            <h5 class="card-title">Визитка</h5>
+            <p class="card-text">Мини-макет с чистой типографикой и отступами.</p>
+            <a href="#" class="btn btn-success">Посмотреть</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-4">
+        <div class="card project-card h-100">
+          <img src="../images/work2.jpg" class="card-img-top" alt="Работа 2 — Обложка">
+          <div class="card-body">
+            <h5 class="card-title">Обложка</h5>
+            <p class="card-text">Постер/обложка для плейлиста с акцентом на композицию.</p>
+            <a href="#" class="btn btn-success">Посмотреть</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-4">
+        <div class="card project-card h-100">
+          <img src="../images/work3.jpg" class="card-img-top" alt="Работа 3 — Хобби-лендинг">
+          <div class="card-body">
+            <h5 class="card-title">Хобби-лендинг</h5>
+            <p class="card-text">Одностраничник с фото, фактами и ссылками.</p>
+            <a href="#" class="btn btn-success">Посмотреть</a>
+          </div>
+        </div>
+      </div>
+      <!-- можно добавить 4-ю карточку -->
+    </div>
+  </section>
+
+  <section id="contact" class="container mb-4">
+    <h2 class="mb-3">Контакты</h2>
+    <form class="row g-3">
+      <div class="col-md-6">
+        <input type="text" class="form-control" placeholder="Имя" required>
+      </div>
+      <div class="col-md-6">
+        <input type="email" class="form-control" placeholder="Email" required>
+      </div>
+      <div class="col-12">
+        <textarea class="form-control" rows="4" placeholder="Сообщение"></textarea>
+      </div>
+      <div class="col-12">
+        <button class="btn btn-success">Отправить</button>
+      </div>
+    </form>
+  </section>
+</main>
+
+<footer class="py-3 bg-dark text-light">
+  <div class="container small">© 2025 Алекс • Сделано на HTML, CSS и Bootstrap</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

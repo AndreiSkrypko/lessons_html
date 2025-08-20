@@ -1,0 +1,39 @@
+/* Нежная анимация и шлифовка */
+:root{
+  --shadow: 0 10px 24px rgba(0,0,0,.12);
+}
+
+/* hero */
+.hero{
+  background: linear-gradient(90deg,#4caf50,#66bb6a);
+}
+.hero-cta{
+  border-radius: 12px;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.hero-cta:hover{
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+/* карточки */
+.project-card{
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.project-card .card-img-top{
+  height: 180px;
+  object-fit: cover;
+}
+.project-card:hover{
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: var(--shadow);
+}
+
+/* мелочи */
+.btn{ border-radius: 10px; }
+img{ max-width: 100%; height: auto; }
+@media (max-width: 576px){
+  .hero-text{ font-size: 1.05rem; }
+}

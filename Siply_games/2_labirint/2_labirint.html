@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Лабиринт для детей</title>
+<style>
+  /* Стили для всего тела страницы */
+  body {
+    display: flex; /* выравниваем лабиринт по центру */
+    justify-content: center;
+    margin-top: 50px; /* отступ сверху */
+    font-family: sans-serif; /* шрифт */
+  }
+
+  /* Контейнер для лабиринта */
+  #maze {
+    display: grid; /* используем CSS Grid для сетки */
+    grid-template-columns: repeat(10, 50px); /* 10 колонок по 50px */
+    grid-template-rows: repeat(10, 50px);   /* 10 строк по 50px */
+    gap: 2px; /* промежуток между клетками */
+  }
+
+  /* Обычная клетка лабиринта */
+  .cell {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #ccc; /* тонкая рамка для наглядности */
+    position: relative; /* нужно для позиционирования игрока внутри клетки */
+  }
+
+  /* Стены лабиринта */
+  .wall {
+    background-color: #333; /* чёрная стена */
+  }
+
+  /* Игрок */
+  .player {
+    background-color: #ff0; /* жёлтый круг */
+    border-radius: 50%; /* делаем круглый */
+    width: 40px;
+    height: 40px;
+    position: absolute; /* позиционируем относительно клетки */
+    top: 5px; /* отступы для центрирования внутри клетки */
+    left: 5px;
+  }
+
+  /* Финиш */
+  .finish {
+    background-color: #0f0; /* зелёная клетка */
+  }
+</style>
+</head>
+<body>
+
+<!-- Контейнер для лабиринта -->
+<div id="maze"></div>
+
+<script>
+  // Данные лабиринта: 0 - пустая клетка, 1 - стена, 2 - финиш
+  const mazeData = [
+    [1,1,1,1,1,1,1,1,1,1],
+    [1,0,0,0,1,0,0,0,0,1],
+    [1,0,1,0,1,0,1,1,0,1],
+    [1,0,1,0,0,0,0,1,0,1],
+    [1,0,1,1,1,1,0,1,0,1],
+    [1,0,0,0,0,1,0,1,0,1],
+    [1,1,1,1,0,1,0,1,0,1],
+    [1,0,0,1,0,0,0,1,0,1],
+    [1,0,0,0,0,1,0,0,2,1],
+    [1,1,1,1,1,1,1,1,1,1]
+  ];
+
+  // Получаем контейнер лабиринта из HTML
+  const maze = document.getElementById('maze');
+
+  // Начальная позиция игрока
+  let playerPos = { x: 1, y: 1 };
+
+  // Функция для отрисовки лабиринта
+  function drawMaze() {
+    maze.innerHTML = ''; // очищаем лабиринт перед перерисовкой
+    for (let y = 0; y < mazeData.length; y++) {
+      for (let x = 0; x < mazeData[y].length; x++) {
+        const cell = document.createElement('div'); // создаём клетку
+        cell.classList.add('cell'); // добавляем базовый стиль
+
+        // Если клетка стена — добавляем класс wall
+        if (mazeData[y][x] === 1) cell.classList.add('wall');
+
+        // Если клетка финиш — добавляем класс finish
+        if (mazeData[y][x] === 2) cell.classList.add('finish');
+
+        // Если в этой клетке игрок — добавляем элемент игрока
+        if (playerPos.x === x && playerPos.y === y) {
+          const player = document.createElement('div');
+          player.classList.add('player');
+          cell.appendChild(player);
+        }
+
+        // Добавляем клетку в контейнер лабиринта
+        maze.appendChild(cell);
+      }
+    }
+  }
+
+  // Обработчик нажатий клавиш для движения игрока
+  document.addEventListener('keydown', (e) => {
+    let newX = playerPos.x;
+    let newY = playerPos.y;
+
+    // Определяем, куда двигаемся
+    if (e.key === 'ArrowUp') newY--;
+    if (e.key === 'ArrowDown') newY++;
+    if (e.key === 'ArrowLeft') newX--;
+    if (e.key === 'ArrowRight') newX++;
+
+    // Проверка, не стена ли на новой позиции
+    if (mazeData[newY][newX] !== 1) {
+      playerPos.x = newX;
+      playerPos.y = newY;
+      drawMaze(); // перерисовываем лабиринт с новым положением
+
+      // Проверка, дошли ли до финиша
+      if (mazeData[newY][newX] === 2) {
+        setTimeout(() => alert('Поздравляем! Вы дошли до финиша!'), 100);
+      }
+    }
+  });
+
+  // Отрисовываем лабиринт первый раз при загрузке страницы
+  drawMaze();
+</script>
+
+</body>
+</html>
