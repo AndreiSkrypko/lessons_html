@@ -1,64 +1,93 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8" />
-  <title>Моё портфолио — финальная версия</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Кастомные стили -->
+<!DOCTYPE html> <!-- HTML5 документ -->
+<html lang="ru"> <!-- Портфолио на русском языке -->
+<head> <!-- Метаданные страницы -->
+  <meta charset="utf-8" /> <!-- Кодировка символов -->
+  <title>Моё портфолио — финальная версия</title> <!-- Название вкладки -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" /> <!-- Мобильная адаптация -->
+  <!-- ПОДКЛЮЧАЕМ BOOTSTRAP -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Bootstrap стили -->
+  
+  <!-- НАШИ ПРОДВИНУТЫЕ КАСТОМНЫЕ СТИЛИ -->
   <style>
-    /* Нежная анимация и шлифовка */
+    /* ========================================= */
+    /* МОЩНЫЕ КОНЕЧНЫЕ СТИЛИ И АНИМАЦИИ */
+    /* ========================================= */
+    
     :root{
-      --shadow: 0 10px 24px rgba(0,0,0,.12);
+      --shadow: 0 10px 24px rgba(0,0,0,.12); /* Красивая глубокая тень для анимаций */
     }
 
-    /* hero */
+    /* ОБЛОЖКА (HERO) С НОВЫМ ЦВЕТОМ */
     .hero{
-      background: linear-gradient(90deg,#4caf50,#66bb6a);
+      background: linear-gradient(90deg,#4caf50,#66bb6a); /* Зелёный градиент вместо голубого */
     }
+    
+    /* КНОПКА ПРОСМОТРА РАБОТ С АНИМАЦИЕЙ */
     .hero-cta{
-      border-radius: 12px;
-      transition: transform .18s ease, box-shadow .18s ease;
+      border-radius: 12px;                                    /* Скруглённые углы */
+      transition: transform .18s ease, box-shadow .18s ease;   /* Плавные переходы (анимации) */
     }
+    
+    /* КНОПКА ПРИ НАВЕДЕНИИ МЫШКОЙ */
     .hero-cta:hover{
-      transform: translateY(-2px);
-      box-shadow: var(--shadow);
+      transform: translateY(-2px);  /* Поднимаем кнопку на 2px */
+      box-shadow: var(--shadow);    /* Добавляем тень */
     }
 
-    /* карточки */
+    /* КАРТОЧКИ ПРОЕКТОВ С МОЩНЫМИ ОХОВЕРОМ! */
     .project-card{
-      border-radius: 16px;
-      overflow: hidden;
-      transition: transform .18s ease, box-shadow .18s ease;
+      border-radius: 16px;                                    /* Большое скругление */
+      overflow: hidden;                                        /* Обрезаем выступающее */
+      transition: transform .18s ease, box-shadow .18s ease;   /* Плавные анимации */
     }
+    
+    /* Картинки в карточках */
     .project-card .card-img-top{
-      height: 180px;
-      object-fit: cover;
+      height: 180px;     /* Одинаковая высота */
+      object-fit: cover; /* Обрезаем по размеру */
     }
+    
+    /* МОЩНЫЕ ЭФФЕКТЫ ПРИ НАВЕДЕНИИ НА КАРТОЧКУ! */
     .project-card:hover{
-      transform: translateY(-6px) scale(1.02);
-      box-shadow: var(--shadow);
+      transform: translateY(-6px) scale(1.02); /* Поднимаем и чуть увеличиваем */
+      box-shadow: var(--shadow);               /* Красивая тень */
     }
 
-    /* мелочи */
-    .btn{ border-radius: 10px; }
-    img{ max-width: 100%; height: auto; }
+    /* МЕЛКИЕ ДОПОЛНЕНИЯ */
+    .btn{ 
+      border-radius: 10px; /* Скруглённые кнопки */
+    }
+    
+    img{ 
+      max-width: 100%;  /* Отзывчивые картинки */
+      height: auto; 
+    }
+    
+    /* АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ */
     @media (max-width: 576px){
-      .hero-text{ font-size: 1.05rem; }
+      .hero-text{ 
+        font-size: 1.05rem; /* Меньший шрифт на маленьких экранах */
+      }
     }
   </style>
 </head>
-<body>
+<body> <!-- Начало видимой части -->
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-success sticky-top shadow-sm">
+<!-- ================================================================= -->
+<!-- ПРОДВИНУТОЕ BOOTSTRAP МЕНЮ (с прилипанием и тенями!) -->
+<!-- ================================================================= -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-success sticky-top shadow-sm"> <!-- sticky-top = прилипает к верху при прокрутке -->
   <div class="container">
-    <a class="navbar-brand fw-semibold" href="#">Портфолио</a>
+    <a class="navbar-brand fw-semibold" href="#">Портфолио</a> <!-- fw-semibold = полужирный шрифт -->
+    
+    <!-- Кнопка для мобильного меню -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-      <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon"></span> <!-- Иконка гамбургера -->
     </button>
+    
+    <!-- Скрываемое меню -->
     <div class="collapse navbar-collapse" id="navMenu">
-      <ul class="navbar-nav ms-auto">
+      <ul class="navbar-nav ms-auto"> <!-- ms-auto = прижимаем меню к правому краю -->
         <li class="nav-item"><a class="nav-link" href="#about">Обо мне</a></li>
         <li class="nav-item"><a class="nav-link" href="#works">Работы</a></li>
         <li class="nav-item"><a class="nav-link" href="#contact">Контакты</a></li>
@@ -67,19 +96,27 @@
   </div>
 </nav>
 
-<header class="hero text-white">
-  <div class="container py-5">
-    <h1 class="display-5 mb-2">Алекс Петров</h1>
-    <p class="lead hero-text">Верстаю и настраиваю аккуратные сайты. Люблю чистую типографику.</p>
-    <a href="#works" class="btn btn-light btn-lg hero-cta">Смотреть работы</a>
+<!-- ============================== -->
+<!-- МОЩНАЯ ОБЛОЖКА (HERO) -->
+<!-- ============================== -->
+<header class="hero text-white"> <!-- Класс hero с нашими стилями -->
+  <div class="container py-5"> <!-- Большие отступы сверху и снизу -->
+    <h1 class="display-5 mb-2">Алекс Петров</h1> <!-- Очень крупный заголовок -->
+    <p class="lead hero-text">Верстаю и настраиваю аккуратные сайты. Люблю чистую типографику.</p> <!-- Подзаголовок -->
+    <a href="#works" class="btn btn-light btn-lg hero-cta">Смотреть работы</a> <!-- Крупная кнопка с анимацией -->
   </div>
 </header>
 
+<!-- =========================================== -->
+<!-- ОСНОВНОЙ КОНТЕНТ С МОЩНЫМИ АНИМАЦИЯМИ -->
+<!-- =========================================== -->
 <main class="py-4">
+  
+  <!-- СЕКЦИЯ "ОБО МНЕ" -->
   <section id="about" class="container mb-4">
-    <div class="row g-4 align-items-center">
+    <div class="row g-4 align-items-center"> <!-- g-4 = большие зазоры между колонками -->
       <div class="col-12 col-md-4 text-center">
-        <img src="../images/profile.jpg" class="img-fluid rounded shadow-sm" alt="Моё фото">
+        <img src="../images/profile.jpg" class="img-fluid rounded shadow-sm" alt="Моё фото"> <!-- shadow-sm = небольшая тень -->
       </div>
       <div class="col-12 col-md-8">
         <h2>Обо мне</h2>
@@ -88,22 +125,26 @@
     </div>
   </section>
 
+  <!-- СЕКЦИЯ С АНИМИРОВАННЫМИ КАРТОЧКАМИ ПРОЕКТОВ -->
   <section id="works" class="container mb-4">
     <h2 class="mb-3">Мои работы</h2>
     <div class="row g-3">
-      <div class="col-sm-6 col-md-4">
-        <div class="card project-card h-100">
+      
+      <!-- ПЕРВАЯ АНИМИРОВАННАЯ КАРТОЧКА -->
+      <div class="col-sm-6 col-md-4"> <!-- col-sm-6 = 2 колонки на телефонах, col-md-4 = 3 колонки на планшетах+ -->
+        <div class="card project-card h-100"> <!-- project-card = наш класс с мощными анимациями! -->
           <img src="../images/work1.jpg" class="card-img-top" alt="Работа 1 — Визитка">
           <div class="card-body">
             <h5 class="card-title">Визитка</h5>
             <p class="card-text">Мини-макет с чистой типографикой и отступами.</p>
-            <a href="#" class="btn btn-success">Посмотреть</a>
+            <a href="#" class="btn btn-success">Посмотреть</a> <!-- btn-success = зелёная кнопка -->
           </div>
         </div>
       </div>
 
+      <!-- ВТОРАЯ АНИМИРОВАННАЯ КАРТОЧКА -->
       <div class="col-sm-6 col-md-4">
-        <div class="card project-card h-100">
+        <div class="card project-card h-100"> <!-- При наведении мыши карточка поднимется и увеличится! -->
           <img src="../images/work2.jpg" class="card-img-top" alt="Работа 2 — Обложка">
           <div class="card-body">
             <h5 class="card-title">Обложка</h5>
@@ -113,6 +154,7 @@
         </div>
       </div>
 
+      <!-- ТРЕТЬЯ АНИМИРОВАННАЯ КАРТОЧКА -->
       <div class="col-sm-6 col-md-4">
         <div class="card project-card h-100">
           <img src="../images/work3.jpg" class="card-img-top" alt="Работа 3 — Хобби-лендинг">
@@ -123,33 +165,46 @@
           </div>
         </div>
       </div>
-      <!-- можно добавить 4-ю карточку -->
+      <!-- КОММЕНТАРИЙ: можно легко добавить 4-ю, 5-ю карточку по тому же принципу -->
     </div>
   </section>
 
+  <!-- СЕКЦИЯ КОНТАКТОВ С ПРОФЕССИОНАЛЬНОЙ ФОРМОЙ -->
   <section id="contact" class="container mb-4">
     <h2 class="mb-3">Контакты</h2>
-    <form class="row g-3">
-      <div class="col-md-6">
-        <input type="text" class="form-control" placeholder="Имя" required>
+    
+    <!-- BOOTSTRAP ФОРМА С АДАПТИВНОЙ СЕТКОЙ -->
+    <form class="row g-3"> <!-- Форма тоже использует систему сетки Bootstrap -->
+      <!-- ПОЛЕ ИМЕНИ -->
+      <div class="col-md-6"> <!-- Половина ширины на планшетах+ -->
+        <input type="text" class="form-control" placeholder="Имя" required> <!-- required = обязательное поле -->
       </div>
-      <div class="col-md-6">
-        <input type="email" class="form-control" placeholder="Email" required>
+      <!-- ПОЛЕ EMAIL -->
+      <div class="col-md-6"> <!-- Вторая половина -->
+        <input type="email" class="form-control" placeholder="Email" required> <!-- type="email" = проверка формата почты -->
       </div>
+      <!-- БОЛЬШОЕ ПОЛЕ ДЛЯ СООБЩЕНИЯ -->
+      <div class="col-12"> <!-- На всю ширину -->
+        <textarea class="form-control" rows="4" placeholder="Сообщение"></textarea> <!-- rows="4" = 4 строки высотой -->
+      </div>
+      <!-- КНОПКА ОТПРАВКИ -->
       <div class="col-12">
-        <textarea class="form-control" rows="4" placeholder="Сообщение"></textarea>
-      </div>
-      <div class="col-12">
-        <button class="btn btn-success">Отправить</button>
+        <button class="btn btn-success">Отправить</button> <!-- Зелёная кнопка под цвет навигации -->
       </div>
     </form>
   </section>
+  
 </main>
 
-<footer class="py-3 bg-dark text-light">
-  <div class="container small">© 2025 Алекс • Сделано на HTML, CSS и Bootstrap</div>
+<!-- ========================================= -->
+<!-- ПРОФЕССИОНАЛЬНЫЙ ПОДВАЛ С ДОПОЛНИТЕЛЬНОЙ ИНФОРМАЦИЕЙ -->
+<!-- ========================================= -->
+<footer class="py-3 bg-dark text-light"> <!-- Тёмный подвал -->
+  <div class="container small">© 2025 Алекс • Сделано на HTML, CSS и Bootstrap</div> <!-- small = мелкий шрифт -->
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<!-- ПОДКЛЮЧАЕМ BOOTSTRAP JAVASCRIPT ДЛЯ ИНТЕРАКТИВНОСТИ -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/js/bootstrap.bundle.min.js"></script> <!-- Для анимаций меню и других интерактивных элементов -->
+
+</body> <!-- Конец видимой части страницы -->
+</html> <!-- Конец HTML документа -->

@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8" />
-  <title>Портфолио — Карточки проектов (Flexbox)</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<!DOCTYPE html> <!-- HTML5 документ -->
+<html lang="ru"> <!-- Страница на русском языке -->
+<head> <!-- Метаинформация о странице -->
+  <meta charset="utf-8" /> <!-- Кодировка для корректного отображения русских букв -->
+  <title>Портфолио — Карточки проектов (Flexbox)</title> <!-- Название вкладки -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" /> <!-- Настройка для мобильных устройств -->
   <style>
     /* БАЗА (из lesson2) */
     :root{
@@ -82,47 +82,74 @@
     }
     .top-nav a:hover { background: rgba(255,255,255,.28); }
 
-    /* СЕТКА КАРТОЧЕК (дополнительно для lesson4) */
+    /* ========================================== */
+    /* FLEXBOX КАРТОЧКИ (новое в этом уроке!) */
+    /* ========================================== */
+    
+    /* КОНТЕЙНЕР ДЛЯ КАРТОЧЕК */
     .cards{
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      justify-content: center;
+      display: flex;            /* Флекс — укладываем элементы в ряд */
+      gap: 16px;               /* Расстояние между карточками */
+      flex-wrap: wrap;         /* Переносим карточки на новую строку, если не помещаются */
+      justify-content: center; /* Центрируем карточки */
     }
+    
+    /* ОТДЕЛЬНАЯ КАРТОЧКА */
     .card{
-      background: #fff;
-      width: 300px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,.06);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
+      background: #fff;                         /* Белый фон */
+      width: 300px;                            /* Ширина каждой карточки */
+      border-radius: 12px;                     /* Скруглённые углы */
+      box-shadow: 0 4px 12px rgba(0,0,0,.06);  /* Лёгкая тень под карточкой */
+      overflow: hidden;                        /* Обрезаем выступающее содержимое */
+      display: flex;                           /* Карточка — тоже флекс-контейнер */
+      flex-direction: column;                  /* Располагаем содержимое карточки в столбец */
     }
+    
+    /* КАРТИНКА В КАРТОЧКЕ */
     .card img{
-      display: block;
-      width: 100%;
-      height: 168px;
-      object-fit: cover;
+      display: block;  /* Картинка как блок */
+      width: 100%;     /* На всю ширину карточки */
+      height: 168px;   /* Фиксированная высота */
+      object-fit: cover; /* Обрезаем картинку по размеру, не растягивая */
     }
-    .card h3{ margin: 12px 16px 6px; }
-    .card p{ margin: 0 16px 12px; color: var(--muted); }
+    
+    /* ЗАГОЛОВОК КАРТОЧКИ */
+    .card h3{ 
+      margin: 12px 16px 6px; /* Отступы: верх, боки, низ */
+    }
+    
+    /* ОПИСАНИЕ КАРТОЧКИ */
+    .card p{ 
+      margin: 0 16px 12px;  /* Отступы */
+      color: var(--muted);  /* Приглушённый цвет из переменной */
+    }
+    
+    /* КНОПКА В КАРТОЧКЕ */
     .card-btn{
-      align-self: flex-start;
-      margin: 0 16px 16px;
-      padding: 8px 12px;
-      border-radius: 10px;
-      text-decoration: none;
-      color: #fff;
-      background: linear-gradient(90deg,var(--brand1),var(--brand2));
+      align-self: flex-start;                                      /* Прижимаем кнопку к левому краю */
+      margin: 0 16px 16px;                                         /* Отступы вокруг кнопки */
+      padding: 8px 12px;                                           /* Отступы внутри кнопки */
+      border-radius: 10px;                                         /* Скруглённые углы */
+      text-decoration: none;                                       /* Убираем подчёркивание */
+      color: #fff;                                                 /* Белый текст */
+      background: linear-gradient(90deg,var(--brand1),var(--brand2)); /* Градиент как фон */
     }
-    .card-btn:hover{ filter: brightness(1.05); }
+    
+    /* КНОПКА ПРИ НАВЕДЕНИИ */
+    .card-btn:hover{ 
+      filter: brightness(1.05); /* Становится чуть ярче */
+    }
   </style>
 </head>
-<body>
+<body> <!-- Начало видимой части страницы -->
+
+  <!-- ================================================= -->
+  <!-- ШАПКА С НАВИГАЦИЕЙ (как в уроке 3) -->
+  <!-- ================================================= -->
   <header class="site-header">
     <div class="container">
       <h1 class="site-title">Алекс Петров</h1>
-      <nav class="top-nav">
+      <nav class="top-nav"> <!-- Меню навигации -->
         <a href="#about">Обо мне</a>
         <a href="#works">Работы</a>
         <a href="#contacts">Контакты</a>
@@ -130,24 +157,34 @@
     </div>
   </header>
 
-  <main class="container">
-    <section id="about" class="section">
+  <!-- ==================================== -->
+  <!-- ОСНОВНОЙ КОНТЕНТ -->
+  <!-- ==================================== -->
+  <main class="container"> <!-- Главные секции сайта -->
+    
+    <!-- ОБЫЧНАЯ СЕКЦИЯ "О МНЕ" -->
+    <section id="about" class="section"> <!-- id для якорных ссылок -->
       <h2>Обо мне</h2>
       <p>Верстаю аккуратные страницы и изучаю дизайн интерфейсов.</p>
       <img src="../images/profile.jpg" alt="Моё фото" class="profile-photo">
     </section>
 
+    <!-- НОВОЕ! СЕКЦИЯ С FLEXBOX КАРТОЧКАМИ -->
     <section id="works" class="section">
       <h2>Мои работы</h2>
 
-      <div class="cards">
-        <article class="card">
-          <img src="../images/work1.jpg" alt="Работа 1">
-          <h3>Проект 1 — Визитка</h3>
-          <p>Мини-макет с чистой типографикой и аккуратными отступами.</p>
-          <a class="card-btn" href="#" target="_blank" rel="noopener">Посмотреть</a>
+      <!-- КОНТЕЙНЕР ДЛЯ КАРТОЧЕК -->
+      <div class="cards"> <!-- div с классом cards - это флекс-контейнер для карточек -->
+        
+        <!-- ПЕРВАЯ КАРТОЧКА -->
+        <article class="card"> <!-- article с классом card -->
+          <img src="../images/work1.jpg" alt="Работа 1"> <!-- Картинка проекта -->
+          <h3>Проект 1 — Визитка</h3> <!-- Название -->
+          <p>Мини-макет с чистой типографикой и аккуратными отступами.</p> <!-- Описание -->
+          <a class="card-btn" href="#" target="_blank" rel="noopener">Посмотреть</a> <!-- Кнопка-ссылка -->
         </article>
 
+        <!-- ВТОРАЯ КАРТОЧКА -->
         <article class="card">
           <img src="../images/work2.jpg" alt="Работа 2">
           <h3>Проект 2 — Обложка</h3>
@@ -155,23 +192,30 @@
           <a class="card-btn" href="#" target="_blank" rel="noopener">Посмотреть</a>
         </article>
 
+        <!-- ТРЕТЬЯ КАРТОЧКА -->
         <article class="card">
           <img src="../images/work3.jpg" alt="Работа 3">
           <h3>Проект 3 — Хобби-лендинг</h3>
           <p>Одностраничник с фото, фактами и ссылками.</p>
           <a class="card-btn" href="#" target="_blank" rel="noopener">Посмотреть</a>
         </article>
-      </div>
+      </div> <!-- Конец контейнера карточек -->
     </section>
 
+    <!-- ОБЫЧНАЯ СЕКЦИЯ КОНТАКТОВ -->
     <section id="contacts" class="section">
       <h2>Контакты</h2>
-      <p>Почта: <a href="mailto:alex@example.com">alex@example.com</a></p>
+      <p>Почта: <a href="mailto:alex@example.com">alex@example.com</a></p> <!-- Кликабельная ссылка на почту -->
     </section>
+    
   </main>
 
-  <footer class="site-footer">
+  <!-- ================ -->
+  <!-- ПОДВАЛ САЙТА -->
+  <!-- ================ -->
+  <footer class="site-footer"> <!-- Подвал с копирайтом -->
     <div class="container">© 2025 Алекс</div>
   </footer>
-</body>
-</html>
+  
+</body> <!-- Конец видимой части -->
+</html> <!-- Конец HTML документа -->

@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8" />
-  <title>Портфолио — Семантика и навигация</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<!DOCTYPE html> <!-- HTML5 документ -->
+<html lang="ru"> <!-- Страница на русском языке -->
+<head> <!-- Метаданные страницы -->
+  <meta charset="utf-8" /> <!-- Кодировка для корректного отображения русских букв -->
+  <title>Портфолио — Семантика и навигация</title> <!-- Заголовок вкладки -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" /> <!-- Для мобильных устройств -->
   <style>
     /* БАЗА (из lesson2) */
     :root{
@@ -83,49 +83,71 @@
     .top-nav a:hover { background: rgba(255,255,255,.28); }
   </style>
 </head>
-<body>
-  <header class="site-header">
-    <div class="container">
-      <h1 class="site-title">Алекс Петров</h1>
-      <nav class="top-nav">
-        <a href="#about">Обо мне</a>
-        <a href="#works">Работы</a>
-        <a href="#contacts">Контакты</a>
+<body> <!-- Начинаем видимую часть страницы -->
+
+  <!-- ========================================= -->
+  <!-- ШАПКА С НАВИГАЦИЕЙ (новое в этом уроке!) -->
+  <!-- ========================================= -->
+  <header class="site-header"> <!-- Обычная шапка -->
+    <div class="container">   <!-- Контейнер для ограничения ширины -->
+      <h1 class="site-title">Алекс Петров</h1> <!-- Главный заголовок -->
+      
+      <!-- НОВОЕ! МЕНЮ НАВИГАЦИИ -->
+      <nav class="top-nav"> <!-- nav = навигация (меню переходов по сайту) -->
+        <a href="#about">Обо мне</a>     <!-- Ссылка на секцию "Обо мне" (#about - якорная ссылка) -->
+        <a href="#works">Работы</a>      <!-- Ссылка на секцию "Работы" -->
+        <a href="#contacts">Контакты</a> <!-- Ссылка на секцию "Контакты" -->
       </nav>
     </div>
   </header>
 
-  <main class="container">
-    <section id="about" class="section">
+  <!-- ============================ -->
+  <!-- ОСНОВНОЙ КОНТЕНТ -->
+  <!-- ============================ -->
+  <main class="container"> <!-- Главные секции сайта -->
+    
+    <!-- ПЕРВАЯ СЕКЦИЯ с ID для навигации -->
+    <section id="about" class="section"> <!-- id="about" - якорь для перехода по ссылке -->
       <h2>Обо мне</h2>
       <p>Я учусь верстке и дизайну, люблю делать аккуратные интерфейсы.</p>
       <img src="../images/profile.jpg" alt="Моё фото" class="profile-photo">
     </section>
 
-    <section id="works" class="section">
+    <!-- ВТОРАЯ СЕКЦИЯ с ID для навигации -->
+    <section id="works" class="section"> <!-- id="works" - якорь для кнопки "Работы" в меню -->
       <h2>Мои работы</h2>
-      <article class="work">
-        <h3>Проект «Визитка»</h3>
+      
+      <!-- НОВОЕ! Используем тег ARTICLE для отдельных работ -->
+      <article class="work"> <!-- article = отдельная статья/материал -->
+        <h3>Проект «Визитка»</h3> <!-- h3 = заголовок 3-го уровня -->
         <p>Простой макет визитки с чистой типографикой.</p>
       </article>
+      
       <article class="work">
         <h3>Обложка плейлиста</h3>
         <p>Графический дизайн для музыкальной подборки.</p>
       </article>
+      
       <article class="work">
         <h3>Мини-сайт о хобби</h3>
         <p>Одностраничник с краткими фактами, фото и ссылками.</p>
       </article>
     </section>
 
-    <section id="contacts" class="section">
+    <!-- ТРЕТЬЯ СЕКЦИЯ с ID для навигации -->
+    <section id="contacts" class="section"> <!-- id="contacts" - якорь для кнопки "Контакты" -->
       <h2>Контакты</h2>
-      <p>Почта: <a href="mailto:alex@example.com">alex@example.com</a></p>
+      <p>Почта: <a href="mailto:alex@example.com">alex@example.com</a></p> <!-- Кликабельная ссылка на email -->
     </section>
+    
   </main>
 
-  <footer class="site-footer">
-    <div class="container">© 2025 Алекс</div>
+  <!-- ============ -->
+  <!-- ПОДВАЛ САЙТА -->
+  <!-- ============ -->
+  <footer class="site-footer"> <!-- Подвал с тёмным фоном -->
+    <div class="container">© 2025 Алекс</div> <!-- Копирайт информация -->
   </footer>
-</body>
-</html>
+  
+</body> <!-- Конец видимой части -->
+</html> <!-- Конец HTML документа -->
