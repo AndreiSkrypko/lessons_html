@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <!-- Указываем кодировку для правильного отображения русских букв -->
+    <meta charset="UTF-8">
+    <!-- Делаем сайт удобным для мобильных устройств -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Название вкладки браузера -->
+    <title>👆 Уровень 1: Супер Кликер</title>
+    
+    <!-- 🎨 ВСТРОЕННЫЕ СТИЛИ CSS -->
+    <style>
+        /* === УБИРАЕМ СТАНДАРТНЫЕ ОТСТУПЫ === */
+        * {
+            margin: 0;           /* убираем внешние отступы */
+            padding: 0;          /* убираем внутренние отступы */
+            box-sizing: border-box;  /* размеры считаются с учетом границ */
+        }
+
+        /* === ОСНОВНЫЕ СТИЛИ СТРАНИЦЫ === */
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;  /* детский шрифт */
+            background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);  /* розовый градиент */
+            min-height: 100vh;      /* минимальная высота = вся высота экрана */
+            display: flex;          /* используем флексбокс для выравнивания */
+            flex-direction: column; /* располагаем элементы в столбик */
+            align-items: center;    /* выравниваем по центру горизонтально */
+            justify-content: center; /* выравниваем по центру вертикально */
+            color: #333;            /* темно-серый цвет текста */
+            animation: backgroundShift 10s ease infinite;  /* анимация фона */
+        }
+
+        /* === АНИМАЦИЯ СМЕНЫ ФОНА === */
+        @keyframes backgroundShift {
+            0% { background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 100%); }
+            25% { background: linear-gradient(45deg, #a8edea 0%, #fed6e3 100%); }
+            50% { background: linear-gradient(45deg, #ffecd2 0%, #fcb69f 100%); }
+            75% { background: linear-gradient(45deg, #ff8a80 0%, #ffb74d 100%); }
+            100% { background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 100%); }
+        }
+
+        /* === ГЛАВНЫЙ КОНТЕЙНЕР === */
+        .game-container {
+            text-align: center;     /* выравниваем текст по центру */
+            background: rgba(255, 255, 255, 0.9);  /* полупрозрачный белый фон */
+            border-radius: 30px;    /* очень скругленные углы */
+            padding: 40px;          /* внутренние отступы */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);  /* тень */
+            backdrop-filter: blur(10px);  /* размытие фона */
+            border: 3px solid rgba(255, 255, 255, 0.3);  /* полупрозрачная граница */
+            max-width: 500px;       /* максимальная ширина */
+            width: 90%;             /* ширина в процентах для адаптивности */
+        }
+
+        /* === ЗАГОЛОВОК ИГРЫ === */
+        h1 {
+            font-size: 3em;         /* большой размер шрифта */
+            color: #ff6b6b;         /* красивый красный цвет */
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);  /* легкая тень */
+            animation: titleBounce 3s ease-in-out infinite;  /* анимация подпрыгивания */
+        }
+
+        /* === АНИМАЦИЯ ЗАГОЛОВКА === */
+        @keyframes titleBounce {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.1) rotate(-2deg); }
+            75% { transform: scale(1.1) rotate(2deg); }
+        }
+
+        /* === СЧЕТЧИК ОЧКОВ === */
+        .score-display {
+            font-size: 2.5em;      /* большой размер */
+            color: #4ecdc4;        /* бирюзовый цвет */
+            font-weight: bold;     /* жирный шрифт */
+            margin: 30px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: scoreGlow 2s ease-in-out infinite alternate;  /* анимация свечения */
+        }
+
+        /* === АНИМАЦИЯ СВЕЧЕНИЯ СЧЕТЧИКА === */
+        @keyframes scoreGlow {
+            from { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); }
+            to { text-shadow: 0 0 20px #4ecdc4, 2px 2px 4px rgba(0, 0, 0, 0.1); }
+        }
+
+        /* === ОСНОВНАЯ КНОПКА-КЛИКЕР === */
+        .click-button {
+            width: 200px;           /* ширина кнопки */
+            height: 200px;          /* высота кнопки (делаем квадратной) */
+            border: none;           /* убираем стандартную границу */
+            border-radius: 50%;     /* делаем круглой */
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);  /* градиент */
+            color: white;           /* белый цвет текста */
+            font-size: 4em;         /* большой размер эмодзи */
+            cursor: pointer;        /* курсор-указатель при наведении */
+            margin: 30px;
+            transition: all 0.2s ease;  /* плавные переходы для всех изменений */
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);  /* красивая тень */
+            position: relative;     /* для позиционирования эффектов */
+        }
+
+        /* === ЭФФЕКТ ПРИ НАВЕДЕНИИ === */
+        .click-button:hover {
+            transform: scale(1.1);  /* увеличиваем размер */
+            box-shadow: 0 15px 30px rgba(255, 107, 107, 0.5);  /* увеличиваем тень */
+            background: linear-gradient(45deg, #ff8e53, #ff6b6b);  /* меняем градиент */
+        }
+
+        /* === ЭФФЕКТ ПРИ НАЖАТИИ === */
+        .click-button:active {
+            transform: scale(0.95);  /* уменьшаем размер */
+            box-shadow: 0 5px 10px rgba(255, 107, 107, 0.3);  /* уменьшаем тень */
+        }
+
+        /* === АНИМАЦИЯ ПРИ КЛИКЕ === */
+        .click-animation {
+            animation: clickPulse 0.3s ease-out;  /* анимация пульсации */
+        }
+
+        @keyframes clickPulse {
+            0% { transform: scale(0.95); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* === ДОПОЛНИТЕЛЬНЫЕ КНОПКИ === */
+        .upgrade-section {
+            margin-top: 40px;       /* отступ сверху */
+            display: flex;          /* используем флексбокс */
+            flex-wrap: wrap;        /* переносим кнопки на новую строку если не помещаются */
+            gap: 15px;              /* промежуток между кнопками */
+            justify-content: center; /* выравниваем по центру */
+        }
+
+        /* === СТИЛИ ДЛЯ КНОПОК УЛУЧШЕНИЙ === */
+        .upgrade-button {
+            padding: 15px 25px;     /* внутренние отступы */
+            border: none;           /* убираем границу */
+            border-radius: 25px;    /* скругленные углы */
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);  /* бирюзовый градиент */
+            color: white;           /* белый текст */
+            font-size: 1.1em;       /* размер шрифта */
+            cursor: pointer;        /* курсор-указатель */
+            transition: all 0.3s ease;  /* плавные переходы */
+            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);  /* тень */
+            font-family: inherit;   /* наследуем шрифт от родителя */
+            min-width: 120px;       /* минимальная ширина */
+        }
+
+        /* === ЭФФЕКТЫ ДЛЯ КНОПОК УЛУЧШЕНИЙ === */
+        .upgrade-button:hover {
+            transform: translateY(-3px) scale(1.05);  /* поднимаем и увеличиваем */
+            box-shadow: 0 8px 20px rgba(78, 205, 196, 0.4);  /* увеличиваем тень */
+        }
+
+        .upgrade-button:active {
+            transform: translateY(-1px) scale(0.98);  /* эффект нажатия */
+        }
+
+        /* === НЕАКТИВНАЯ КНОПКА === */
+        .upgrade-button:disabled {
+            background: #ccc;       /* серый цвет */
+            cursor: not-allowed;    /* курсор "запрещено" */
+            transform: none;        /* отключаем трансформации */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* маленькая тень */
+        }
+
+        /* === ИНФОРМАЦИОННАЯ ПАНЕЛЬ === */
+        .info-panel {
+            background: rgba(255, 255, 255, 0.7);  /* полупрозрачный фон */
+            border-radius: 15px;    /* скругленные углы */
+            padding: 20px;          /* внутренние отступы */
+            margin: 30px 0;
+            border: 2px solid rgba(78, 205, 196, 0.3);  /* цветная граница */
+        }
+
+        .info-item {
+            margin: 10px 0;        /* отступы между элементами */
+            font-size: 1.2em;      /* размер шрифта */
+            color: #555;           /* цвет текста */
+        }
+
+        /* === КНОПКА "ДОМОЙ" === */
+        .home-button {
+            position: fixed;       /* фиксированное позиционирование */
+            top: 20px;             /* отступ сверху */
+            left: 20px;            /* отступ слева */
+            width: 60px;           /* ширина */
+            height: 60px;          /* высота */
+            border: none;          /* убираем границу */
+            border-radius: 50%;    /* делаем круглой */
+            background: linear-gradient(45deg, #667eea, #764ba2);  /* градиент */
+            color: white;          /* белый текст */
+            font-size: 1.5em;      /* размер эмодзи */
+            cursor: pointer;       /* курсор-указатель */
+            transition: all 0.3s ease;  /* плавные переходы */
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);  /* тень */
+            z-index: 1000;         /* поверх других элементов */
+        }
+
+        .home-button:hover {
+            transform: scale(1.1) rotate(360deg);  /* увеличиваем и поворачиваем */
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);  /* увеличиваем тень */
+        }
+
+        /* === ЧАСТИЦЫ ПРИ КЛИКЕ === */
+        .particle {
+            position: absolute;    /* абсолютное позиционирование */
+            pointer-events: none;  /* не мешают кликам */
+            font-size: 2em;        /* размер */
+            animation: particleFly 1s ease-out forwards;  /* анимация полета */
+        }
+
+        @keyframes particleFly {
+            0% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.5) translateY(-100px);
+            }
+        }
+
+        /* === АДАПТИВНЫЙ ДИЗАЙН ДЛЯ МОБИЛЬНЫХ === */
+        @media (max-width: 600px) {
+            h1 { font-size: 2em; }              /* уменьшаем заголовок */
+            .score-display { font-size: 2em; }  /* уменьшаем счетчик */
+            .click-button {                     /* уменьшаем кнопку */
+                width: 150px;
+                height: 150px;
+                font-size: 3em;
+            }
+            .game-container { padding: 20px; }  /* уменьшаем отступы */
+        }
+    </style>
+</head>
+<body>
+    <!-- КНОПКА ВОЗВРАТА НА ГЛАВНУЮ СТРАНИЦУ -->
+    <button class="home-button" onclick="location.href='../index.html'" title="Вернуться на главную">🏠</button>
+
+    <!-- ОСНОВНОЙ КОНТЕЙНЕР ИГРЫ -->
+    <div class="game-container">
+        <!-- ЗАГОЛОВОК ИГРЫ -->
+        <h1>👆 Супер Кликер!</h1>
+        
+        <!-- СЧЕТЧИК ОЧКОВ -->
+        <div class="score-display">
+            Очки: <span id="score">0</span>
+        </div>
+        
+        <!-- ГЛАВНАЯ КНОПКА ДЛЯ КЛИКОВ -->
+        <button class="click-button" id="clickButton" onclick="handleClick()">
+            🎯
+        </button>
+        
+        <!-- ИНФОРМАЦИОННАЯ ПАНЕЛЬ -->
+        <div class="info-panel">
+            <div class="info-item">
+                🔥 Очков за клик: <span id="clickPower">1</span>
+            </div>
+            <div class="info-item">
+                ⚡ Автокликов в секунду: <span id="autoClicks">0</span>
+            </div>
+            <div class="info-item">
+                🏆 Всего кликов: <span id="totalClicks">0</span>
+            </div>
+        </div>
+        
+        <!-- КНОПКИ УЛУЧШЕНИЙ -->
+        <div class="upgrade-section">
+            <button class="upgrade-button" id="upgrade1" onclick="buyUpgrade('power')">
+                🔥 Больше силы<br>
+                <small>Цена: <span id="powerCost">10</span></small>
+            </button>
+            
+            <button class="upgrade-button" id="upgrade2" onclick="buyUpgrade('auto')">
+                🤖 Автокликер<br>
+                <small>Цена: <span id="autoCost">50</span></small>
+            </button>
+            
+            <button class="upgrade-button" id="upgrade3" onclick="buyUpgrade('multiplier')">
+                ⭐ Супер бонус<br>
+                <small>Цена: <span id="multiplierCost">200</span></small>
+            </button>
+        </div>
+    </div>
+
+    <!-- 🚀 JAVASCRIPT - ЛОГИКА ИГРЫ -->
+    <script>
+        // === ПЕРЕМЕННЫЕ ИГРЫ ===
+        
+        // Основные переменные для хранения состояния игры
+        let score = 0;              // текущие очки игрока
+        let clickPower = 1;         // сколько очков дает один клик
+        let autoClicks = 0;         // автоматические клики в секунду
+        let totalClicks = 0;        // общее количество кликов (для статистики)
+        
+        // Цены улучшений (будут увеличиваться после каждой покупки)
+        let powerCost = 10;         // цена улучшения силы клика
+        let autoCost = 50;          // цена автокликера
+        let multiplierCost = 200;   // цена супер бонуса
+        
+        // Множители для увеличения цен
+        let powerMultiplier = 1.5;  // во сколько раз увеличивается цена силы
+        let autoMultiplier = 2;     // во сколько раз увеличивается цена автокликера
+        let multiplierMultiplier = 3; // во сколько раз увеличивается цена бонуса
+        
+        // === ПОЛУЧАЕМ ССЫЛКИ НА HTML ЭЛЕМЕНТЫ ===
+        
+        // Эти переменные содержат ссылки на элементы страницы
+        const scoreElement = document.getElementById('score');           // счетчик очков
+        const clickPowerElement = document.getElementById('clickPower'); // показ силы клика
+        const autoClicksElement = document.getElementById('autoClicks'); // показ автокликов
+        const totalClicksElement = document.getElementById('totalClicks'); // показ общих кликов
+        const clickButton = document.getElementById('clickButton');      // главная кнопка
+        
+        // Элементы с ценами улучшений
+        const powerCostElement = document.getElementById('powerCost');
+        const autoCostElement = document.getElementById('autoCost');
+        const multiplierCostElement = document.getElementById('multiplierCost');
+        
+        // Кнопки улучшений
+        const upgrade1 = document.getElementById('upgrade1');
+        const upgrade2 = document.getElementById('upgrade2');
+        const upgrade3 = document.getElementById('upgrade3');
+
+        // === ГЛАВНАЯ ФУНКЦИЯ КЛИКА ===
+        
+        function handleClick() {
+            // Увеличиваем очки на текущую силу клика
+            score += clickPower;
+            
+            // Увеличиваем счетчик общих кликов
+            totalClicks++;
+            
+            // Обновляем отображение на странице
+            updateDisplay();
+            
+            // Добавляем визуальные эффекты
+            animateButton();
+            createParticle();
+            
+            // Выводим информацию в консоль (для обучения)
+            console.log(`💫 Клик! +${clickPower} очков. Всего очков: ${score}`);
+        }
+
+        // === ФУНКЦИЯ АНИМАЦИИ КНОПКИ ===
+        
+        function animateButton() {
+            // Добавляем класс анимации
+            clickButton.classList.add('click-animation');
+            
+            // Убираем класс через 300 миллисекунд (когда анимация закончится)
+            setTimeout(() => {
+                clickButton.classList.remove('click-animation');
+            }, 300);
+        }
+
+        // === ФУНКЦИЯ СОЗДАНИЯ ЧАСТИЦ ===
+        
+        function createParticle() {
+            // Создаем новый элемент для частицы
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Случайно выбираем эмодзи для частицы
+            const emojis = ['⭐', '✨', '💫', '🌟', '💥', '🎉'];
+            particle.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            // Позиционируем частицу относительно кнопки
+            const buttonRect = clickButton.getBoundingClientRect();
+            particle.style.left = (buttonRect.left + Math.random() * buttonRect.width) + 'px';
+            particle.style.top = (buttonRect.top + Math.random() * buttonRect.height) + 'px';
+            
+            // Добавляем частицу на страницу
+            document.body.appendChild(particle);
+            
+            // Удаляем частицу через секунду (когда анимация закончится)
+            setTimeout(() => {
+                particle.remove();
+            }, 1000);
+        }
+
+        // === ФУНКЦИЯ ПОКУПКИ УЛУЧШЕНИЙ ===
+        
+        function buyUpgrade(type) {
+            // Проверяем какое улучшение покупаем
+            if (type === 'power') {
+                // Улучшение силы клика
+                if (score >= powerCost) {
+                    score -= powerCost;           // вычитаем стоимость
+                    clickPower += 1;              // увеличиваем силу клика
+                    powerCost = Math.floor(powerCost * powerMultiplier);  // увеличиваем цену
+                    console.log(`🔥 Куплено улучшение силы! Новая сила: ${clickPower}`);
+                } else {
+                    // Если не хватает очков, показываем сообщение
+                    alert(`❌ Не хватает очков! Нужно еще ${powerCost - score} очков.`);
+                    return;
+                }
+                
+            } else if (type === 'auto') {
+                // Автокликер
+                if (score >= autoCost) {
+                    score -= autoCost;            // вычитаем стоимость
+                    autoClicks += 1;              // добавляем автокликер
+                    autoCost = Math.floor(autoCost * autoMultiplier);  // увеличиваем цену
+                    console.log(`🤖 Куплен автокликер! Автокликов: ${autoClicks}/сек`);
+                } else {
+                    alert(`❌ Не хватает очков! Нужно еще ${autoCost - score} очков.`);
+                    return;
+                }
+                
+            } else if (type === 'multiplier') {
+                // Супер бонус (умножает силу клика на 2)
+                if (score >= multiplierCost) {
+                    score -= multiplierCost;      // вычитаем стоимость
+                    clickPower *= 2;              // удваиваем силу клика
+                    multiplierCost = Math.floor(multiplierCost * multiplierMultiplier);  // увеличиваем цену
+                    console.log(`⭐ Куплен супер бонус! Новая сила: ${clickPower}`);
+                } else {
+                    alert(`❌ Не хватает очков! Нужно еще ${multiplierCost - score} очков.`);
+                    return;
+                }
+            }
+            
+            // Обновляем отображение после покупки
+            updateDisplay();
+            updateUpgradeButtons();
+        }
+
+        // === ФУНКЦИЯ ОБНОВЛЕНИЯ ОТОБРАЖЕНИЯ ===
+        
+        function updateDisplay() {
+            // Обновляем все текстовые элементы на странице
+            scoreElement.textContent = score;
+            clickPowerElement.textContent = clickPower;
+            autoClicksElement.textContent = autoClicks;
+            totalClicksElement.textContent = totalClicks;
+            
+            // Обновляем цены улучшений
+            powerCostElement.textContent = powerCost;
+            autoCostElement.textContent = autoCost;
+            multiplierCostElement.textContent = multiplierCost;
+        }
+
+        // === ФУНКЦИЯ ОБНОВЛЕНИЯ СОСТОЯНИЯ КНОПОК ===
+        
+        function updateUpgradeButtons() {
+            // Делаем кнопки неактивными если не хватает очков
+            upgrade1.disabled = score < powerCost;
+            upgrade2.disabled = score < autoCost;
+            upgrade3.disabled = score < multiplierCost;
+        }
+
+        // === АВТОМАТИЧЕСКИЕ КЛИКИ ===
+        
+        // Запускаем автокликеры каждую секунду
+        setInterval(() => {
+            if (autoClicks > 0) {
+                // Добавляем очки от автокликеров
+                score += autoClicks * clickPower;
+                
+                // Обновляем отображение
+                updateDisplay();
+                updateUpgradeButtons();
+                
+                // Показываем эффект автокликов
+                if (Math.random() < 0.3) { // случайно показываем частицы
+                    createParticle();
+                }
+                
+                console.log(`🤖 Автоклик! +${autoClicks * clickPower} очков`);
+            }
+        }, 1000); // каждые 1000 миллисекунд = каждую секунду
+
+        // === ПОСТОЯННОЕ ОБНОВЛЕНИЕ ===
+        
+        // Обновляем состояние кнопок каждые 100 миллисекунд
+        setInterval(() => {
+            updateUpgradeButtons();
+        }, 100);
+
+        // === СОХРАНЕНИЕ ИГРЫ ===
+        
+        // Сохраняем прогресс в локальном хранилище браузера
+        function saveGame() {
+            const gameData = {
+                score: score,
+                clickPower: clickPower,
+                autoClicks: autoClicks,
+                totalClicks: totalClicks,
+                powerCost: powerCost,
+                autoCost: autoCost,
+                multiplierCost: multiplierCost
+            };
+            
+            // Преобразуем в строку и сохраняем
+            localStorage.setItem('clickerGameSave', JSON.stringify(gameData));
+            console.log('💾 Игра сохранена!');
+        }
+
+        // === ЗАГРУЗКА ИГРЫ ===
+        
+        // Загружаем сохраненный прогресс
+        function loadGame() {
+            const savedData = localStorage.getItem('clickerGameSave');
+            
+            if (savedData) {
+                // Если есть сохранение, загружаем его
+                const gameData = JSON.parse(savedData);
+                
+                score = gameData.score || 0;
+                clickPower = gameData.clickPower || 1;
+                autoClicks = gameData.autoClicks || 0;
+                totalClicks = gameData.totalClicks || 0;
+                powerCost = gameData.powerCost || 10;
+                autoCost = gameData.autoCost || 50;
+                multiplierCost = gameData.multiplierCost || 200;
+                
+                console.log('📂 Игра загружена!');
+            }
+            
+            // Обновляем отображение
+            updateDisplay();
+            updateUpgradeButtons();
+        }
+
+        // === АВТОСОХРАНЕНИЕ ===
+        
+        // Сохраняем игру каждые 5 секунд
+        setInterval(saveGame, 5000);
+
+        // === ОБРАБОТКА КЛАВИШ ===
+        
+        // Позволяем кликать пробелом
+        document.addEventListener('keydown', (event) => {
+            if (event.code === 'Space') {
+                event.preventDefault(); // предотвращаем скролл страницы
+                handleClick();
+            }
+        });
+
+        // === ИНИЦИАЛИЗАЦИЯ ИГРЫ ===
+        
+        // Когда страница загрузилась, запускаем игру
+        window.addEventListener('load', () => {
+            loadGame(); // загружаем сохранение
+            
+            // Показываем приветственное сообщение
+            console.log('🎮 Добро пожаловать в Супер Кликер!');
+            console.log('💡 Нажимай пробел или кликай мышкой!');
+            console.log('🔧 Открой консоль разработчика (F12) чтобы видеть код в действии!');
+            
+            // Показываем подсказку игроку
+            setTimeout(() => {
+                if (totalClicks === 0) {
+                    alert('👋 Привет! Кликай на кнопку 🎯 чтобы заработать очки!\n💡 Также можешь нажимать пробел!');
+                }
+            }, 1000);
+        });
+
+        // === СБРОС ИГРЫ (ДЛЯ ОТЛАДКИ) ===
+        
+        // Функция для полного сброса игры (можно вызвать в консоли)
+        function resetGame() {
+            if (confirm('🗑️ Точно хочешь сбросить всю игру?')) {
+                localStorage.removeItem('clickerGameSave');
+                location.reload(); // перезагружаем страницу
+            }
+        }
+        
+        // Делаем функцию доступной в консоли
+        window.resetGame = resetGame;
+    </script>
+</body>
+</html>

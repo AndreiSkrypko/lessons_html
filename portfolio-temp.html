@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 Портфолио Алекса — Веб-разработчик и Создатель Игр</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 300% 300%;
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+            animation: backgroundMove 15s ease infinite;
+        }
+
+        @keyframes backgroundMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 40px 30px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        h1 {
+            font-size: 3.5em;
+            color: #4CAF50;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: titleBounce 3s ease-in-out infinite;
+        }
+
+        @keyframes titleBounce {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-5px) rotate(1deg); }
+            75% { transform: translateY(-3px) rotate(-1deg); }
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            font-size: 2.2em;
+            color: #2196F3;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(45deg, #4CAF50, #2196F3);
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+
+        .profile-photo {
+            display: block;
+            margin: 0 auto 20px auto;
+            border-radius: 50%;
+            border: 5px solid #4CAF50;
+            box-shadow: 0 10px 25px rgba(76, 175, 80, 0.3);
+            transition: transform 0.3s ease;
+            animation: photoFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes photoFloat {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-10px) scale(1.05); }
+        }
+
+        .profile-photo:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .game-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(8px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border-color: #4CAF50;
+        }
+
+        .game-emoji {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            display: block;
+            animation: emojiPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes emojiPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .game-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .game-level {
+            font-size: 0.95em;
+            color: #FF9800;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .game-description {
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .games-academy-link {
+            display: inline-block;
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-decoration: none;
+            margin: 20px auto;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .games-academy-link:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+            color: white;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        li {
+            padding: 8px 0;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        li::before {
+            content: "🚀";
+            position: absolute;
+            left: 0;
+            top: 8px;
+        }
+
+        .skills-list li::before {
+            content: "⭐";
+        }
+
+        a {
+            color: #2196F3;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #4CAF50;
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 10px; }
+            h1 { font-size: 2.5em; }
+            h2 { font-size: 1.8em; }
+            .games-grid { grid-template-columns: 1fr; gap: 15px; }
+            .game-card { padding: 20px; }
+            section { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎮 Привет! Я — Алекс</h1>
+            <p class="subtitle">Веб-разработчик, создатель игр и исследователь цифрового мира!</p>
+            <p>Изучаю программирование, создаю интерактивные проекты и делюсь знаниями с другими.</p>
+        </header>
+
+        <main>
+            <section>
+                <h2>🧑‍💻 Обо мне</h2>
+                <img src="Lessons_Html_CSS/images/profile.jpg" alt="Моё фото" width="200" height="200" class="profile-photo">
+                
+                <p style="text-align: center; font-size: 1.1em; margin-bottom: 20px;">
+                    Привет! Меня зовут Алекс, и я увлекаюсь веб-разработкой и созданием игр. 
+                    Изучаю HTML, CSS и JavaScript, постоянно экспериментирую с новыми технологиями.
+                </p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 25px;">
+                    <div>
+                        <h3 style="color: #4CAF50; margin-bottom: 10px;">🎯 Мои интересы:</h3>
+                        <ul>
+                            <li>Веб-разработка (HTML, CSS, JavaScript)</li>
+                            <li>Создание интерактивных игр</li>
+                            <li>UI/UX дизайн</li>
+                            <li>Адаптивная верстка</li>
+                            <li>Canvas API и анимации</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 style="color: #2196F3; margin-bottom: 10px;">⚡ Навыки:</h3>
+                        <ul class="skills-list">
+                            <li>HTML5 семантическая верстка</li>
+                            <li>CSS3 стили и анимации</li>
+                            <li>JavaScript ES6+</li>
+                            <li>Адаптивный дизайн</li>
+                            <li>Игровая логика и алгоритмы</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>🎮 Мои Игры</h2>
+                <p style="text-align: center; font-size: 1.1em; margin-bottom: 10px;">
+                    Коллекция интерактивных игр для изучения программирования. 
+                    Каждая игра демонстрирует различные аспекты веб-разработки.
+                </p>
+                
+                <div style="text-align: center; margin-bottom: 25px;">
+                    <a href="games-academy.html" class="games-academy-link">
+                        🏫 Открыть Игровую Академию (полная версия)
+                    </a>
+                </div>
+
+                <div class="games-grid">
+                    <a href="games/level1-clicker.html" class="game-card">
+                        <span class="game-emoji">👆</span>
+                        <div class="game-title">Супер Кликер</div>
+                        <div class="game-level">📚 УРОВЕНЬ 1 — Начинающий</div>
+                        <div class="game-description">
+                            Моя первая интерактивная игра! Изучение основ HTML-элементов, 
+                            обработки событий и простых JavaScript функций.
+                        </div>
+                    </a>
+
+                    <a href="games/level2-catch-square.html" class="game-card">
+                        <span class="game-emoji">🟥</span>
+                        <div class="game-title">Поймай Квадрат</div>
+                        <div class="game-level">📖 УРОВЕНЬ 2 — Изучающий</div>
+                        <div class="game-description">
+                            Игра на реакцию с CSS позиционированием. Изучаю работу с координатами, 
+                            событиями мыши и создание динамических элементов.
+                        </div>
+                    </a>
+
+                    <a href="games/level3-maze.html" class="game-card">
+                        <span class="game-emoji">🗺️</span>
+                        <div class="game-title">Волшебный Лабиринт</div>
+                        <div class="game-level">📘 УРОВЕНЬ 3 — Продвинутый</div>
+                        <div class="game-description">
+                            Логическая игра с лабиринтами. Применяю двумерные массивы, 
+                            CSS Grid и алгоритмы обработки клавиатуры.
+                        </div>
+                    </a>
+
+                    <a href="games/level4-snake.html" class="game-card">
+                        <span class="game-emoji">🐍</span>
+                        <div class="game-title">Классическая Змейка</div>
+                        <div class="game-level">📙 УРОВЕНЬ 4 — Эксперт</div>
+                        <div class="game-description">
+                            Легендарная игра на Canvas. Изучение игровых циклов, 
+                            столкновений и сложной логики управления состоянием.
+                        </div>
+                    </a>
+
+                    <a href="games/level5-tetris.html" class="game-card">
+                        <span class="game-emoji">🧩</span>
+                        <div class="game-title">Мини Тетрис</div>
+                        <div class="game-level">📚 УРОВЕНЬ 5 — Мастер</div>
+                        <div class="game-description">
+                            Самая сложная игра! Продвинутые алгоритмы поворота фигур, 
+                            обработка линий и комплексное управление состоянием.
+                        </div>
+                    </a>
+
+                    <a href="Siply_games/1_catch_scuare/1_catch_square.html" class="game-card">
+                        <span class="game-emoji">⚡</span>
+                        <div class="game-title">Оригинальная Ловля</div>
+                        <div class="game-level">🔧 ПРОТОТИП</div>
+                        <div class="game-description">
+                            Первая версия игры "поймай квадрат". Простая реализация 
+                            для понимания базовых принципов.
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <section>
+                <h2>💼 Другие проекты</h2>
+                <p style="text-align: center; margin-bottom: 20px;">
+                    Дополнительные проекты и эксперименты в области веб-разработки:
+                </p>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div style="text-align: center; padding: 20px; background: rgba(76, 175, 80, 0.1); border-radius: 10px;">
+                        <h3 style="color: #4CAF50; margin-bottom: 10px;">🎨 Дизайн и верстка</h3>
+                        <ul style="text-align: left;">
+                            <li><a href="Lessons_Html_CSS/lesson2-css-design/lesson2.html">Стилизация с CSS</a></li>
+                            <li><a href="Lessons_Html_CSS/lesson3-semantic-nav/lesson3.html">Семантическая навигация</a></li>
+                            <li><a href="Lessons_Html_CSS/lesson4-flexbox-cards/lesson4.html">Flexbox карточки</a></li>
+                        </ul>
+                    </div>
+
+                    <div style="text-align: center; padding: 20px; background: rgba(33, 150, 243, 0.1); border-radius: 10px;">
+                        <h3 style="color: #2196F3; margin-bottom: 10px;">🚀 Продвинутые техники</h3>
+                        <ul style="text-align: left;">
+                            <li><a href="Lessons_Html_CSS/lesson5-bootstrap/lesson5.html">Bootstrap интеграция</a></li>
+                            <li><a href="Lessons_Html_CSS/lesson6-final/lesson6.html">Финальный проект</a></li>
+                            <li><a href="Siply_games/2_labirint/2_labirint.html">Прототип лабиринта</a></li>
+                        </ul>
+                    </div>
+
+                    <div style="text-align: center; padding: 20px; background: rgba(255, 152, 0, 0.1); border-radius: 10px;">
+                        <h3 style="color: #FF9800; margin-bottom: 10px;">📚 Обучающие материалы</h3>
+                        <ul style="text-align: left;">
+                            <li>HTML семантика и структура</li>
+                            <li>CSS анимации и переходы</li>
+                            <li>JavaScript игровая логика</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>📞 Связаться со мной</h2>
+                <div style="text-align: center;">
+                    <p style="font-size: 1.1em; margin-bottom: 15px;">
+                        Заинтересовались моими проектами? Хотите обсудить веб-разработку?
+                    </p>
+                    <p>
+                        📧 Почта: <a href="mailto:alex@example.com" style="font-size: 1.1em; font-weight: bold;">alex@example.com</a>
+                    </p>
+                    <p style="margin-top: 15px; color: #666;">
+                        💡 Открыт для сотрудничества и обмена опытом!
+                    </p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p style="font-size: 1.1em; margin-bottom: 10px;">
+                <strong>© 2025 Алекс — Портфолио веб-разработчика</strong>
+            </p>
+            <p style="color: #666;">
+                🌟 Создано с любовью к программированию и обучению
+            </p>
+            <p style="margin-top: 10px; color: #888; font-size: 0.9em;">
+                💻 Все игры содержат подробные комментарии в коде для изучения
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        console.log('🎮 Портфолио Алекса загружено!');
+        console.log('💡 Изучай код игр для обучения программированию!');
+        
+        // Счетчик посещений
+        let visits = localStorage.getItem('portfolioVisits') || 0;
+        visits++;
+        localStorage.setItem('portfolioVisits', visits);
+        
+        const footer = document.querySelector('footer');
+        const counter = document.createElement('p');
+        counter.style.marginTop = '15px';
+        counter.style.fontSize = '0.8em';
+        counter.style.color = '#999';
+        counter.innerHTML = `👥 Посещений: <strong>${visits}</strong>`;
+        footer.appendChild(counter);
+    </script>
+</body>
+</html>

@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <!-- Указываем кодировку для правильного отображения русских букв -->
+    <meta charset="UTF-8">
+    <!-- Делаем сайт удобным для мобильных устройств -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Название вкладки браузера -->
+    <title>🟥 Уровень 2: Поймай Квадрат</title>
+    
+    <!-- 🎨 ВСТРОЕННЫЕ СТИЛИ CSS -->
+    <style>
+        /* === СБРОС СТАНДАРТНЫХ СТИЛЕЙ === */
+        * {
+            margin: 0;              /* убираем внешние отступы */
+            padding: 0;             /* убираем внутренние отступы */
+            box-sizing: border-box; /* размеры элементов включают границы и отступы */
+        }
+
+        /* === ОСНОВНЫЕ СТИЛИ СТРАНИЦЫ === */
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;  /* детский шрифт */
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c);  /* многоцветный градиент */
+            background-size: 400% 400%;     /* увеличиваем размер градиента для анимации */
+            min-height: 100vh;              /* минимальная высота = весь экран */
+            overflow: hidden;               /* скрываем полосы прокрутки */
+            position: relative;             /* для позиционирования дочерних элементов */
+            animation: gradientShift 15s ease infinite;  /* анимация смены градиента */
+        }
+
+        /* === АНИМАЦИЯ ФОНОВОГО ГРАДИЕНТА === */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* === КНОПКА ВОЗВРАТА ДОМОЙ === */
+        .home-button {
+            position: fixed;        /* фиксированная позиция */
+            top: 20px;              /* отступ от верха */
+            left: 20px;             /* отступ от левого края */
+            width: 60px;            /* ширина */
+            height: 60px;           /* высота */
+            border: none;           /* убираем границу */
+            border-radius: 50%;     /* делаем круглой */
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);  /* градиент */
+            color: white;           /* белый текст */
+            font-size: 1.5em;       /* размер эмодзи */
+            cursor: pointer;        /* курсор-указатель */
+            transition: all 0.3s ease;  /* плавные переходы */
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);  /* тень */
+            z-index: 1000;          /* поверх всех элементов */
+        }
+
+        .home-button:hover {
+            transform: scale(1.1) rotate(360deg);  /* увеличиваем и поворачиваем */
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.5);  /* увеличиваем тень */
+        }
+
+        /* === ЗАГОЛОВОК ИГРЫ === */
+        .game-title {
+            position: fixed;        /* фиксированная позиция */
+            top: 20px;              /* отступ от верха */
+            width: 100%;            /* на всю ширину */
+            text-align: center;     /* выравнивание по центру */
+            font-size: 2.5em;       /* большой размер */
+            color: white;           /* белый цвет */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);  /* тень для читаемости */
+            z-index: 999;           /* поверх игровых элементов */
+            animation: titleGlow 2s ease-in-out infinite alternate;  /* анимация свечения */
+        }
+
+        /* === АНИМАЦИЯ СВЕЧЕНИЯ ЗАГОЛОВКА === */
+        @keyframes titleGlow {
+            from { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); }
+            to { text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 2px 2px 4px rgba(0, 0, 0, 0.5); }
+        }
+
+        /* === ПАНЕЛЬ СЧЕТА === */
+        .score-panel {
+            position: fixed;        /* фиксированная позиция */
+            top: 100px;             /* ниже заголовка */
+            left: 50%;              /* по центру горизонтально */
+            transform: translateX(-50%);  /* точное центрирование */
+            background: rgba(255, 255, 255, 0.9);  /* полупрозрачный белый фон */
+            padding: 20px 40px;     /* внутренние отступы */
+            border-radius: 25px;    /* скругленные углы */
+            backdrop-filter: blur(10px);  /* размытие фона */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);  /* красивая тень */
+            z-index: 998;           /* под заголовком, над игрой */
+            border: 3px solid rgba(255, 255, 255, 0.5);  /* полупрозрачная граница */
+        }
+
+        .score-item {
+            display: inline-block;  /* элементы в строку */
+            margin: 0 15px;         /* отступы между элементами */
+            text-align: center;     /* выравнивание по центру */
+        }
+
+        .score-label {
+            display: block;         /* каждый на своей строке */
+            font-size: 1em;         /* размер шрифта */
+            color: #666;            /* серый цвет */
+            margin-bottom: 5px;     /* отступ снизу */
+        }
+
+        .score-value {
+            display: block;         /* каждый на своей строке */
+            font-size: 1.8em;       /* крупный размер */
+            font-weight: bold;      /* жирный шрифт */
+            color: #333;            /* темно-серый */
+        }
+
+        /* === ЦВЕТОВОЕ КОДИРОВАНИЕ СЧЕТА === */
+        .score-value.caught { color: #4CAF50; }      /* зеленый для пойманных */
+        .score-value.missed { color: #f44336; }      /* красный для пропущенных */
+        .score-value.level { color: #2196F3; }       /* синий для уровня */
+        .score-value.time { color: #FF9800; }        /* оранжевый для времени */
+
+        /* === ОСНОВНОЙ КВАДРАТ === */
+        .square {
+            position: absolute;     /* абсолютное позиционирование */
+            width: 80px;            /* ширина */
+            height: 80px;           /* высота */
+            border-radius: 15px;    /* скругленные углы */
+            cursor: pointer;        /* курсор-указатель */
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);  /* плавное движение с эффектом */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);  /* тень */
+            display: flex;          /* для центрирования содержимого */
+            align-items: center;    /* выравнивание по вертикали */
+            justify-content: center; /* выравнивание по горизонтали */
+            font-size: 2em;         /* размер эмодзи */
+            user-select: none;      /* запрещаем выделение текста */
+            z-index: 997;           /* под панелью счета */
+            /* Градиентный фон - изучаем как делать красивые цвета! */
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53, #ff6b9d, #c44569);
+            background-size: 300% 300%;  /* увеличиваем для анимации */
+            animation: squareGradient 2s ease infinite;  /* анимация градиента */
+        }
+
+        /* === АНИМАЦИЯ ГРАДИЕНТА КВАДРАТА === */
+        @keyframes squareGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* === ЭФФЕКТ НАВЕДЕНИЯ НА КВАДРАТ === */
+        .square:hover {
+            transform: scale(1.1) rotate(5deg);  /* увеличиваем и поворачиваем */
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);  /* увеличиваем тень */
+        }
+
+        /* === АНИМАЦИЯ ПОЙМАННОГО КВАДРАТА === */
+        .square.caught {
+            animation: catchAnimation 0.5s ease-out;  /* анимация при поимке */
+        }
+
+        @keyframes catchAnimation {
+            0% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.5) rotate(180deg); }
+            100% { transform: scale(0) rotate(360deg); }
+        }
+
+        /* === РАЗНЫЕ ТИПЫ КВАДРАТОВ === */
+        .square.normal {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);  /* обычный - красный */
+        }
+
+        .square.fast {
+            background: linear-gradient(45deg, #4CAF50, #8BC34A);  /* быстрый - зеленый */
+            animation: fastPulse 0.5s ease infinite alternate;    /* пульсация */
+        }
+
+        .square.bonus {
+            background: linear-gradient(45deg, #FFD700, #FFA500);  /* бонусный - золотой */
+            animation: bonusRotate 1s linear infinite;            /* вращение */
+        }
+
+        .square.big {
+            width: 120px;           /* больше обычного */
+            height: 120px;
+            background: linear-gradient(45deg, #9C27B0, #E91E63);  /* фиолетовый */
+            animation: bigScale 1s ease-in-out infinite alternate; /* пульсация размера */
+        }
+
+        /* === АНИМАЦИИ ДЛЯ РАЗНЫХ ТИПОВ === */
+        @keyframes fastPulse {
+            from { box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3); }
+            to { box-shadow: 0 15px 30px rgba(76, 175, 80, 0.6), 0 0 20px rgba(76, 175, 80, 0.4); }
+        }
+
+        @keyframes bonusRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes bigScale {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        /* === ЧАСТИЦЫ ПРИ ПОИМКЕ === */
+        .particle {
+            position: absolute;     /* абсолютное позиционирование */
+            pointer-events: none;   /* не мешают кликам */
+            font-size: 1.5em;       /* размер эмодзи */
+            z-index: 996;           /* под квадратами */
+            animation: particleExplode 1s ease-out forwards;  /* анимация взрыва */
+        }
+
+        @keyframes particleExplode {
+            0% {
+                opacity: 1;
+                transform: scale(1) translate(0, 0);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(2) translate(var(--dx), var(--dy));
+            }
+        }
+
+        /* === СООБЩЕНИЯ НА ЭКРАНЕ === */
+        .message {
+            position: fixed;        /* фиксированная позиция */
+            top: 50%;               /* по центру вертикально */
+            left: 50%;              /* по центру горизонтально */
+            transform: translate(-50%, -50%);  /* точное центрирование */
+            background: rgba(0, 0, 0, 0.8);   /* полупрозрачный черный фон */
+            color: white;           /* белый текст */
+            padding: 30px 50px;     /* большие отступы */
+            border-radius: 20px;    /* скругленные углы */
+            font-size: 2em;         /* большой размер шрифта */
+            text-align: center;     /* выравнивание по центру */
+            z-index: 1001;          /* поверх всего */
+            backdrop-filter: blur(10px);  /* размытие фона */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);  /* большая тень */
+            animation: messageSlideIn 0.5s ease-out;  /* анимация появления */
+        }
+
+        @keyframes messageSlideIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        /* === ИНСТРУКЦИИ === */
+        .instructions {
+            position: fixed;        /* фиксированная позиция */
+            bottom: 20px;           /* отступ снизу */
+            width: 100%;            /* на всю ширину */
+            text-align: center;     /* выравнивание по центру */
+            color: rgba(255, 255, 255, 0.8);  /* полупрозрачный белый */
+            font-size: 1.1em;       /* размер шрифта */
+            z-index: 995;           /* под игровыми элементами */
+        }
+
+        /* === АДАПТИВНЫЙ ДИЗАЙН ДЛЯ МОБИЛЬНЫХ === */
+        @media (max-width: 768px) {
+            .game-title {
+                font-size: 2em;      /* уменьшаем заголовок */
+            }
+            
+            .score-panel {
+                padding: 15px 25px;  /* уменьшаем отступы */
+                top: 80px;           /* ближе к верху */
+            }
+            
+            .score-item {
+                margin: 0 8px;      /* меньше отступов */
+            }
+            
+            .square {
+                width: 60px;        /* меньше квадраты */
+                height: 60px;
+                font-size: 1.5em;   /* меньше эмодзи */
+            }
+            
+            .square.big {
+                width: 90px;        /* пропорционально меньше большой квадрат */
+                height: 90px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- КНОПКА ВОЗВРАТА НА ГЛАВНУЮ СТРАНИЦУ -->
+    <button class="home-button" onclick="location.href='../index.html'" title="Вернуться на главную">🏠</button>
+
+    <!-- ЗАГОЛОВОК ИГРЫ -->
+    <h1 class="game-title">🟥 Поймай Квадрат!</h1>
+
+    <!-- ПАНЕЛЬ СЧЕТА -->
+    <div class="score-panel">
+        <div class="score-item">
+            <span class="score-label">🎯 Поймано</span>
+            <span class="score-value caught" id="caughtCount">0</span>
+        </div>
+        <div class="score-item">
+            <span class="score-label">😭 Пропущено</span>
+            <span class="score-value missed" id="missedCount">0</span>
+        </div>
+        <div class="score-item">
+            <span class="score-label">📊 Уровень</span>
+            <span class="score-value level" id="currentLevel">1</span>
+        </div>
+        <div class="score-item">
+            <span class="score-label">⏰ Время</span>
+            <span class="score-value time" id="timeLeft">30</span>
+        </div>
+    </div>
+
+    <!-- КВАДРАТ ДЛЯ ЛОВЛИ (создается в JavaScript) -->
+    
+    <!-- ИНСТРУКЦИИ -->
+    <div class="instructions">
+        💡 Наводи мышку на квадрат и кликай, чтобы поймать! Разные цвета дают разные очки!
+    </div>
+
+    <!-- 🚀 JAVASCRIPT - ЛОГИКА ИГРЫ -->
+    <script>
+        // === ПЕРЕМЕННЫЕ ИГРЫ ===
+        
+        // Основные переменные состояния
+        let caughtCount = 0;        // количество пойманных квадратов
+        let missedCount = 0;        // количество пропущенных квадратов
+        let currentLevel = 1;       // текущий уровень
+        let timeLeft = 30;          // оставшееся время в секундах
+        let gameActive = false;     // активна ли игра сейчас
+        let currentSquare = null;   // текущий квадрат на экране
+        let gameTimer = null;       // таймер игры
+        let squareTimer = null;     // таймер появления квадратов
+        
+        // Настройки игры
+        const GAME_DURATION = 30;   // длительность игры в секундах
+        const BASE_SQUARE_TIME = 3; // базовое время жизни квадрата (секунды)
+        
+        // === ПОЛУЧЕНИЕ ССЫЛОК НА ЭЛЕМЕНТЫ ===
+        const caughtElement = document.getElementById('caughtCount');
+        const missedElement = document.getElementById('missedCount');
+        const levelElement = document.getElementById('currentLevel');
+        const timeElement = document.getElementById('timeLeft');
+
+        // === ТИПЫ КВАДРАТОВ === 
+        const squareTypes = [
+            {
+                type: 'normal',      // обычный квадрат
+                emoji: '🟥',         // эмодзи для отображения
+                points: 1,           // очки за поимку
+                probability: 0.5,    // вероятность появления (50%)
+                speed: 1,            // множитель скорости
+                description: 'Обычный квадрат'
+            },
+            {
+                type: 'fast',        // быстрый квадрат
+                emoji: '🟢',
+                points: 2,           // больше очков
+                probability: 0.25,   // реже появляется (25%)
+                speed: 1.5,          // быстрее исчезает
+                description: 'Быстрый квадрат - больше очков!'
+            },
+            {
+                type: 'bonus',       // бонусный квадрат
+                emoji: '🟡',
+                points: 5,           // много очков
+                probability: 0.15,   // редко появляется (15%)
+                speed: 0.8,          // живет дольше
+                description: 'Бонусный квадрат - много очков!'
+            },
+            {
+                type: 'big',         // большой квадрат
+                emoji: '🟣',
+                points: 3,
+                probability: 0.1,    // очень редко (10%)
+                speed: 0.9,          // немного медленнее
+                description: 'Большой квадрат - легче поймать!'
+            }
+        ];
+
+        // === ФУНКЦИЯ СТАРТА ИГРЫ ===
+        function startGame() {
+            // Сбрасываем все значения
+            caughtCount = 0;
+            missedCount = 0;
+            currentLevel = 1;
+            timeLeft = GAME_DURATION;
+            gameActive = true;
+            
+            // Обновляем отображение
+            updateDisplay();
+            
+            // Запускаем таймер игры
+            gameTimer = setInterval(updateTimer, 1000); // каждую секунду
+            
+            // Создаем первый квадрат
+            createSquare();
+            
+            console.log('🎮 Игра началась!');
+        }
+
+        // === ФУНКЦИЯ ОБНОВЛЕНИЯ ТАЙМЕРА ===
+        function updateTimer() {
+            timeLeft--;
+            updateDisplay();
+            
+            // Если время закончилось
+            if (timeLeft <= 0) {
+                endGame();
+            }
+            
+            // Увеличиваем уровень каждые 10 секунд
+            if ((GAME_DURATION - timeLeft) % 10 === 0 && timeLeft > 0) {
+                currentLevel++;
+                showMessage(`🎉 Уровень ${currentLevel}!`, 1500);
+                console.log(`⬆️ Повышение уровня! Теперь уровень ${currentLevel}`);
+            }
+        }
+
+        // === ФУНКЦИЯ ЗАВЕРШЕНИЯ ИГРЫ ===
+        function endGame() {
+            gameActive = false;
+            
+            // Останавливаем таймеры
+            if (gameTimer) clearInterval(gameTimer);
+            if (squareTimer) clearTimeout(squareTimer);
+            
+            // Удаляем текущий квадрат
+            if (currentSquare) {
+                currentSquare.remove();
+                currentSquare = null;
+            }
+            
+            // Показываем результат
+            const accuracy = caughtCount + missedCount > 0 ? 
+                Math.round((caughtCount / (caughtCount + missedCount)) * 100) : 0;
+            
+            showMessage(
+                `🎯 Игра окончена!\n` +
+                `Поймано: ${caughtCount}\n` +
+                `Пропущено: ${missedCount}\n` +
+                `Точность: ${accuracy}%\n` +
+                `Уровень: ${currentLevel}`,
+                5000
+            );
+            
+            console.log(`🏁 Игра окончена! Результат: ${caughtCount}/${caughtCount + missedCount} (${accuracy}%)`);
+            
+            // Предлагаем начать заново через 5 секунд
+            setTimeout(() => {
+                if (confirm('🔄 Хочешь сыграть еще раз?')) {
+                    startGame();
+                }
+            }, 5000);
+        }
+
+        // === ФУНКЦИЯ СОЗДАНИЯ КВАДРАТА ===
+        function createSquare() {
+            if (!gameActive) return;
+            
+            // Удаляем предыдущий квадрат если он есть
+            if (currentSquare) {
+                currentSquare.remove();
+                missedCount++; // засчитываем как пропущенный
+                updateDisplay();
+            }
+            
+            // Выбираем тип квадрата случайно, учитывая вероятности
+            const squareType = chooseSquareType();
+            
+            // Создаем новый элемент квадрата
+            const square = document.createElement('div');
+            square.className = `square ${squareType.type}`;
+            square.innerHTML = squareType.emoji;
+            square.title = `${squareType.description} (+${squareType.points} очков)`;
+            
+            // Позиционируем квадрат в случайном месте экрана
+            positionSquareRandomly(square);
+            
+            // Добавляем обработчики событий
+            setupSquareEvents(square, squareType);
+            
+            // Добавляем квадрат на страницу
+            document.body.appendChild(square);
+            currentSquare = square;
+            
+            // Рассчитываем время жизни квадрата (уменьшается с уровнем)
+            const squareLifetime = Math.max(
+                BASE_SQUARE_TIME / squareType.speed / (currentLevel * 0.1 + 1),
+                0.5 // минимум полсекунды
+            ) * 1000;
+            
+            // Планируем создание следующего квадрата
+            squareTimer = setTimeout(() => {
+                createSquare();
+            }, squareLifetime);
+            
+            console.log(`🟦 Создан квадрат типа ${squareType.type} на ${squareLifetime/1000} сек`);
+        }
+
+        // === ФУНКЦИЯ ВЫБОРА ТИПА КВАДРАТА ===
+        function chooseSquareType() {
+            const random = Math.random();
+            let cumulativeProbability = 0;
+            
+            // Проходим по типам квадратов и выбираем согласно вероятностям
+            for (const type of squareTypes) {
+                cumulativeProbability += type.probability;
+                if (random <= cumulativeProbability) {
+                    return type;
+                }
+            }
+            
+            // Если ничего не выбрали, возвращаем обычный
+            return squareTypes[0];
+        }
+
+        // === ФУНКЦИЯ ПОЗИЦИОНИРОВАНИЯ КВАДРАТА ===
+        function positionSquareRandomly(square) {
+            // Получаем размеры экрана
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            
+            // Размеры квадрата (учитываем большие квадраты)
+            const squareSize = square.classList.contains('big') ? 120 : 80;
+            
+            // Безопасная зона (чтобы квадрат не появился под интерфейсом)
+            const safeZone = {
+                top: 180,    // под панелью счета
+                bottom: 100, // над инструкциями
+                left: 20,
+                right: 20
+            };
+            
+            // Вычисляем доступное пространство
+            const availableWidth = windowWidth - safeZone.left - safeZone.right - squareSize;
+            const availableHeight = windowHeight - safeZone.top - safeZone.bottom - squareSize;
+            
+            // Случайные позиции в доступном пространстве
+            const randomX = safeZone.left + Math.random() * availableWidth;
+            const randomY = safeZone.top + Math.random() * availableHeight;
+            
+            // Применяем позиции
+            square.style.left = randomX + 'px';
+            square.style.top = randomY + 'px';
+        }
+
+        // === ФУНКЦИЯ НАСТРОЙКИ СОБЫТИЙ КВАДРАТА ===
+        function setupSquareEvents(square, squareType) {
+            // Обработчик наведения мыши - квадрат убегает!
+            square.addEventListener('mouseenter', () => {
+                if (!gameActive) return;
+                
+                // Перемещаем квадрат в новое место
+                positionSquareRandomly(square);
+                
+                console.log('🏃 Квадрат убежал от мыши!');
+            });
+            
+            // Обработчик клика - ловим квадрат!
+            square.addEventListener('click', (event) => {
+                if (!gameActive) return;
+                
+                event.preventDefault(); // предотвращаем стандартное поведение
+                
+                // Останавливаем таймер текущего квадрата
+                if (squareTimer) clearTimeout(squareTimer);
+                
+                // Засчитываем поимку
+                caughtCount += squareType.points; // добавляем очки согласно типу
+                updateDisplay();
+                
+                // Показываем эффекты
+                createCatchEffects(square, squareType);
+                
+                // Удаляем квадрат с анимацией
+                square.classList.add('caught');
+                setTimeout(() => {
+                    square.remove();
+                    currentSquare = null;
+                }, 500);
+                
+                console.log(`✅ Поймал ${squareType.type} квадрат! +${squareType.points} очков`);
+                
+                // Создаем новый квадрат раньше
+                setTimeout(() => {
+                    createSquare();
+                }, 200);
+            });
+        }
+
+        // === ФУНКЦИЯ СОЗДАНИЯ ЭФФЕКТОВ ПРИ ПОИМКЕ ===
+        function createCatchEffects(square, squareType) {
+            // Получаем позицию квадрата
+            const rect = square.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            // Создаем частицы
+            const particleEmojis = ['⭐', '✨', '💫', '🌟', '💥', '🎉', '🔥', '⚡'];
+            const particleCount = squareType.points * 2; // больше частиц для ценных квадратов
+            
+            for (let i = 0; i < particleCount; i++) {
+                setTimeout(() => {
+                    createParticle(centerX, centerY, particleEmojis);
+                }, i * 50); // создаем частицы с небольшой задержкой
+            }
+            
+            // Показываем всплывающие очки
+            showFloatingScore(centerX, centerY, `+${squareType.points}`);
+        }
+
+        // === ФУНКЦИЯ СОЗДАНИЯ ЧАСТИЦЫ ===
+        function createParticle(x, y, emojis) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            // Позиционируем частицу
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            
+            // Случайное направление движения
+            const angle = Math.random() * 2 * Math.PI;
+            const distance = 50 + Math.random() * 100;
+            const dx = Math.cos(angle) * distance;
+            const dy = Math.sin(angle) * distance;
+            
+            // Устанавливаем CSS переменные для анимации
+            particle.style.setProperty('--dx', dx + 'px');
+            particle.style.setProperty('--dy', dy + 'px');
+            
+            // Добавляем на страницу
+            document.body.appendChild(particle);
+            
+            // Удаляем через секунду
+            setTimeout(() => {
+                particle.remove();
+            }, 1000);
+        }
+
+        // === ФУНКЦИЯ ПОКАЗА ВСПЛЫВАЮЩИХ ОЧКОВ ===
+        function showFloatingScore(x, y, text) {
+            const scoreElement = document.createElement('div');
+            scoreElement.textContent = text;
+            scoreElement.style.position = 'absolute';
+            scoreElement.style.left = x + 'px';
+            scoreElement.style.top = y + 'px';
+            scoreElement.style.color = '#4CAF50';
+            scoreElement.style.fontSize = '2em';
+            scoreElement.style.fontWeight = 'bold';
+            scoreElement.style.pointerEvents = 'none';
+            scoreElement.style.zIndex = '1000';
+            scoreElement.style.animation = 'floatUp 2s ease-out forwards';
+            
+            document.body.appendChild(scoreElement);
+            
+            // Добавляем CSS анимацию, если ее еще нет
+            if (!document.querySelector('#floatUpStyle')) {
+                const style = document.createElement('style');
+                style.id = 'floatUpStyle';
+                style.textContent = `
+                    @keyframes floatUp {
+                        0% { opacity: 1; transform: translateY(0) scale(1); }
+                        100% { opacity: 0; transform: translateY(-50px) scale(1.5); }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            // Удаляем через 2 секунды
+            setTimeout(() => {
+                scoreElement.remove();
+            }, 2000);
+        }
+
+        // === ФУНКЦИЯ ПОКАЗА СООБЩЕНИЙ ===
+        function showMessage(text, duration = 3000) {
+            // Удаляем предыдущее сообщение если есть
+            const existingMessage = document.querySelector('.message');
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+            
+            // Создаем новое сообщение
+            const message = document.createElement('div');
+            message.className = 'message';
+            message.textContent = text;
+            
+            document.body.appendChild(message);
+            
+            // Удаляем через указанное время
+            setTimeout(() => {
+                message.remove();
+            }, duration);
+        }
+
+        // === ФУНКЦИЯ ОБНОВЛЕНИЯ ОТОБРАЖЕНИЯ ===
+        function updateDisplay() {
+            caughtElement.textContent = caughtCount;
+            missedElement.textContent = missedCount;
+            levelElement.textContent = currentLevel;
+            timeElement.textContent = timeLeft;
+        }
+
+        // === ОБРАБОТКА ИЗМЕНЕНИЯ РАЗМЕРА ОКНА ===
+        window.addEventListener('resize', () => {
+            if (currentSquare && gameActive) {
+                // Перемещаем квадрат в безопасную зону при изменении размера окна
+                positionSquareRandomly(currentSquare);
+            }
+        });
+
+        // === ОБРАБОТКА КЛАВИШ ===
+        document.addEventListener('keydown', (event) => {
+            switch(event.code) {
+                case 'Space':
+                    event.preventDefault();
+                    if (!gameActive) {
+                        startGame();
+                    }
+                    break;
+                case 'Escape':
+                    if (gameActive) {
+                        endGame();
+                    }
+                    break;
+            }
+        });
+
+        // === ИНИЦИАЛИЗАЦИЯ ИГРЫ ===
+        window.addEventListener('load', () => {
+            console.log('🎮 Игра "Поймай квадрат" загружена!');
+            console.log('💡 Нажми пробел чтобы начать игру!');
+            console.log('🔧 Открой консоль разработчика (F12) чтобы видеть что происходит!');
+            
+            // Показываем приветственное сообщение
+            setTimeout(() => {
+                showMessage(
+                    '👋 Добро пожаловать!\n' +
+                    '🎯 Кликай по квадратам чтобы их поймать!\n' +
+                    '🏃 Но они будут убегать от твоей мыши!\n' +
+                    '🚀 Нажми ПРОБЕЛ чтобы начать!',
+                    5000
+                );
+            }, 1000);
+        });
+
+        // === АВТОМАТИЧЕСКИЙ СТАРТ ===
+        // Автоматически начинаем игру через 6 секунд после загрузки
+        setTimeout(() => {
+            if (!gameActive) {
+                startGame();
+            }
+        }, 6000);
+    </script>
+</body>
+</html>

@@ -4,7 +4,68 @@
   <meta charset="utf-8" />
   <title>Портфолио — Первая стилизация</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* БАЗА */
+    :root{
+      --bg: #f6f8fb;
+      --text: #2c2f36;
+      --muted: #6b7280;
+      --brand1: #6fb1fc;
+      --brand2: #8ec5fc;
+      --card: #ffffff;
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    /* КОНТЕЙНЕР */
+    .container {
+      width: min(100% - 32px, 960px);
+      margin-inline: auto;
+    }
+
+    /* ХЕДЕР */
+    .site-header {
+      background: linear-gradient(90deg, var(--brand1), var(--brand2));
+      color: #fff;
+      padding: 28px 0;
+      margin-bottom: 24px;
+    }
+    .site-title { margin: 0; }
+    .subtitle { margin: 6px 0 0; opacity: .9; }
+
+    /* СЕКЦИИ */
+    .section { background: var(--card); padding: 20px; border-radius: var(--radius); margin-bottom: 16px; }
+    .section-title { margin-top: 0; }
+
+    /* КАРТИНКА ПРОФИЛЯ */
+    .profile-photo {
+      display: block;
+      width: 260px;
+      max-width: 100%;
+      border-radius: 10px;
+      border: 4px solid #e5e7eb;
+      padding: 4px;
+      margin-top: 8px;
+    }
+
+    /* ФУТЕР */
+    .site-footer {
+      margin-top: 24px;
+      padding: 20px 0;
+      color: #fff;
+      background: #111827;
+      font-size: .95rem;
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">

@@ -1,7 +1,0 @@
-/* подключим минимальные кастом-штрихи поверх Bootstrap */
-:root{
-  --radius: 14px;
-}
-.card { border-radius: var(--radius); overflow: hidden; }
-.card-img-top { height: 180px; object-fit: cover; }
-.btn { border-radius: 10px; }
